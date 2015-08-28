@@ -1,0 +1,45 @@
+#auth_form{
+    padding:5px 0 0 0;
+    margin:0pc;
+}
+
+#auth_form ul{
+    list-style-type: none;
+}
+
+
+#auth_form ul li{
+    display: inline;
+}
+
+#auth_form label{
+    color: #ccc;
+}
+
+#content{
+    padding-top:100px;
+}
+
+span.glyphicon{
+    cursor:pointer;
+}
+
+table tr td{
+    width:50%;
+}
+
+.required{
+    border-color: Red;
+    box-shadow: 0 0 10px Red;
+}
+
+.edit{
+    position:absolute;
+    margin-top:8px;
+    height:20px;
+    border:1px dashed #ccc;
+}
+
+td.icon{
+    width:5%;
+}

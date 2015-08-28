@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block title %}Customer Area{% endblock %}
+
+{% block head %}
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-animate.min.js"></script>
+{% load staticfiles %}
+<script src="{% static "js/app.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+<div ng-controller="MainController as Ctrl">
+  <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist" id="myTabs">
+        <li ng-class="{'active' : tab == 1}"><a href="#websites" aria-controls="info" data-toggle="tab">Websites</a></li>
+        <li ng-class="{'active' : tab == 2}"><a href="#forms" aria-controls="data" data-toggle="tab">Forms</a></li>
+    </ul>
+
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane" id="websites" ng-class="{'active' : tab == 1}">
+            <div class="panel-body">
+                <input type="text" placeholder="Search" ng-model="websites_filter"/>
+                <span class="pull-right glyphicon glyphicon-plus" ng-click="add('websites')" title="Add new"></span>
+            </div>
+            {% verbatim %}
+            <table class="table" area="websites" ng-show="Utils.keys(websites).length">
+                <tr><th>Name</th><th>Url</th><th></th><th></th></tr>
+                <tr ng-repeat="(website_id, website) in websites | with : websites_filter" item_id="{{website.id}}">
+                    <td type="text" field="name" required>{{ website.name }}</td>
+                    <td type="text" field="url" required>{{ website.url }}</td>
+                    <td class="icon"><span class="glyphicon glyphicon-pencil" ng-click="edit('websites', website)" title="Edit"></span></td>
+                    <td class="icon"><span class="glyphicon glyphicon-minus" ng-click="delete('websites', website)" title="Delete"></span></td>
+                </tr>
+            </table>
+            <div ng-hide="Utils.keys(websites).length" class="alert alert-info">No websites yet</div>
+            {% endverbatim %}
+        </div>
+
+
+        <div role="tabpanel" class="tab-pane" id="forms" ng-class="{'active' : tab == 2}">
+            <div class="panel-body">
+                <input type="text" placeholder="Search" ng-model="forms_filter"/>
+                <span class="pull-right glyphicon glyphicon-plus" ng-click="add('forms'); forms[0].website_id = Utils.keys(websites)[0]" title="Add new"></span>
+            </div>
+            {% verbatim %}
+            <table class="table" area="forms" ng-show="Utils.keys(forms).length">
+                <tr><th>Name</th><th>Website</th><th></th><th></th><th></th></tr>
+                <tr ng-repeat="(form_id, form) in forms | with:forms_filter" item_id="{{form.id}}" ng-show="websites[form.website_id]">
+                    <td type="text" field="name" required>{{ form.name }}</td>
+                    <td type="select" field="website_id" options="websites" required>{{ websites[form.website_id].name }}</td>
+                    <td class="icon"><span class="glyphicon glyphicon-pencil" ng-click="edit('forms', form)" title="Edit"></span></td>
+                    <td class="icon"><span class="glyphicon glyphicon-edit" ng-click="edit_form(form)" title="Content Manager"></span></td>
+                    <td class="icon"><span class="glyphicon glyphicon-minus" ng-click="delete('forms', form)" title="Delete"></span></td>
+                </tr>
+            </table>
+            <div ng-hide="Utils.keys(forms).length" class="alert alert-info">No forms yet</div>
+            {% endverbatim %}
+        </div>
+
+
+        <div ng-controller="EditFormController" class="modal">
+            <p>
+                {{ message }}
+            </p>
+
+            <p>
+                <a ng-click="close()">Ok, I got it!</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

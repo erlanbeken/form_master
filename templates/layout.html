@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="form_master">
+<head>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
+    <title>{% block title %}Form Master{% endblock %}</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Form Master</a>
+        </div>
+        {% if user.is_authenticated %}
+            <div class="nav navbar-nav navbar-right">
+              <a class="navbar-brand" href="/logout">Logout</a>
+            </div>
+        {% else %}
+            <form action="/" method="post" class="navbar-form navbar-right" id="auth_form">
+                {% csrf_token %}
+                <ul id="auth_form">
+                    {{ form.as_ul }}
+                    <li><input type="submit" value="Submit" class="btn btn-primary"/></li>
+                </ul>
+            </form>
+        {% endif %}
+      </div>
+    </nav>
+
+    <div id="content" class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

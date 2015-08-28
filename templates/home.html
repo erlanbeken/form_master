@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}Log in / Register{% endblock %}
+
+{% block content %}
+{% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+
+<p>See the form in the upper right corner?</p>
+<p>You may log in if you are an existent customer, otherwise enter your email and desired password to register</p>
+{% endblock %}
