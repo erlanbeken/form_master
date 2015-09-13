@@ -1,6 +1,6 @@
 (function(){
-    app = angular.module('form_master', ['ngAnimate'])
-    app.controller('MainController', ['$scope', '$http', function($scope, $http){
+    app = angular.module('form_master', [])
+    app.controller('MainController', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope){
         $scope.tab = 1;
         $scope.websites = {};
         $scope.forms = [];
@@ -8,7 +8,7 @@
 
         // load data
         $http.get("/websites")
-            .success(function(response){ $scope.websites = response.result; console.log($scope.Utils.values($scope.websites));})
+            .success(function(response){ $scope.websites = response.result; })
             .error(function(response){ alert('Failed to load websites'); })
 
         $http.get("/forms")
@@ -153,7 +153,7 @@
         }
 
         $scope.edit_form = function(form){
-
+            $rootScope.$emit('edit_form_open', form);
         }
     }]);
 
@@ -180,7 +180,10 @@
         };
     });
 
-    app.controller('EditFormController', ['$scope', '$http', function($scope, $http){
-        $scope.message = 'Here'
+    app.controller('EditFormController', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope){
+        $rootScope.$on('edit_form_open', function(event, form) {
+            $scope.form_name = form.name;
+            $("#form_editor").modal()
+        });
     }]);
 })();

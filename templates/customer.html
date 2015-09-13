@@ -58,17 +58,36 @@
             <div ng-hide="Utils.keys(forms).length" class="alert alert-info">No forms yet</div>
             {% endverbatim %}
         </div>
-
-
-        <div ng-controller="EditFormController" class="modal">
-            <p>
-                {{ message }}
-            </p>
-
-            <p>
-                <a ng-click="close()">Ok, I got it!</a>
-            </p>
-        </div>
     </div>
+
+
+    {% verbatim %}
+    <div id="form_editor" class="modal fade" role="dialog" ng-controller="EditFormController">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Form Content Editor - {{form_name}}</h4>
+          </div>
+          <div class="modal-body form_editor_body">
+            <div class="btn-group" class="form_editor_toolbar">
+              <button type="button" class="btn btn-primary">Apple</button>
+              <button type="button" class="btn btn-primary">Samsung</button>
+              <button type="button" class="btn btn-primary">Sony</button>
+            </div>
+            <div class="panel panel-default form_editor_panel" id="form_editor_form">
+              <div class="panel-body">Tut</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    {% endverbatim %}
+
+
 </div>
 {% endblock %}

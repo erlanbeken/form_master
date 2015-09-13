@@ -43,3 +43,21 @@ table tr td{
 td.icon{
     width:5%;
 }
+
+.form_editor_toolbar{
+    margin-bottom:20px;
+}
+
+.form_editor_button{
+    width:35px;
+    height:32px;
+    border:none;
+}
+
+.form_editor_body > *{
+    vertical-align:top;
+}
+
+#form_editor_input_box{
+    background: url('../images/input.png') no-repeat;
+}
